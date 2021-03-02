@@ -18,3 +18,35 @@
     NONE<br>
 
 ***
+
+实现：
+```cpp
+#include <iostream>
+#include <vector>
+#include <cmath>
+
+using std::cin;
+using std::cout;
+using std::endl;
+using std::vector;
+
+int main(int argc, char *argv[])
+{
+    int n;
+    while (cin >> n) {
+        vector<int> fvec, bvec;
+        for (int i = 1; i <= sqrt(n); ++i) {
+            if (!(n % i)) {
+                fvec.push_back(i);
+                bvec.push_back(n/i);
+            }
+        }
+        cout << fvec.size() + bvec.size() << " ";
+        for (const auto &v : fvec)
+            cout << v << " ";
+        for (auto it = bvec.crbegin(); it != bvec.crend(); ++it)
+            cout << *it << " ";
+        cout << endl;
+    }
+}
+```
