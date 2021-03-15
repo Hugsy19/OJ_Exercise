@@ -18,35 +18,40 @@
     NONE<br>
 
 ***
+分析：
+
+根据等差数列公式`$S_n = na_1 + \frac{(n(n-1)}{2}d$`，n要表示为m个正整数之和，即为`$d=1$`时，`$S_n - \frac{(n(n-1)}{2}$`的值要能和`$n$`整除，由此可得题解。
 
 实现：
 ```cpp
 #include <iostream>
-#include <vector>
 #include <cmath>
 
 using std::cin;
 using std::cout;
 using std::endl;
-using std::vector;
 
 int main(int argc, char *argv[])
 {
     int n;
     while (cin >> n) {
-        vector<int> fvec, bvec;
-        for (int i = 1; i <= sqrt(n); ++i) {
-            if (!(n % i)) {
-                fvec.push_back(i);
-                bvec.push_back(n/i);
+        bool ret = 0;
+        for (int i = sqrt(n)*2; i > 1; --i) {
+            if(!((n - (i - 1)*i/2)%i)) {
+                ret = 1;
+                int a = (n - (i - 1)*i/2)/i;
+                if (a > 0) {
+                    cout << n << " = " << a++;
+                    for (int j = 1; j < i; ++j, ++a) {
+                        cout << " + " << a;
+                    }
+                    cout << endl;
+                }
             }
         }
-        cout << fvec.size() + bvec.size() << " ";
-        for (const auto &v : fvec)
-            cout << v << " ";
-        for (auto it = bvec.crbegin(); it != bvec.crend(); ++it)
-            cout << *it << " ";
-        cout << endl;
+        if (!ret) {
+            cout << "NONE" << endl;
+        }
     }
 }
 ```
