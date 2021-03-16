@@ -26,3 +26,50 @@
     England<br>
 
 ***
+实现：
+```cpp
+#include <iostream>
+#include <string>
+#include <vector>
+#include <utility>
+#include <algorithm>
+
+using std::cin;
+using std::cout;
+using std::endl;
+using std::string;
+using std::vector;
+using std::pair;
+using std::make_pair;
+using std::sort;
+
+bool cmp(const pair<string, int> &p1, const pair<string, int> &p2)
+{
+    if (p1.second < p2.second) {
+        return false;
+    } else if (p1.second > p2.second) {
+        return true;
+    } else {
+        return p1.first > p2.first;
+    }
+}
+
+int main(int argc, char *argv[])
+{
+    int n;
+    while (cin >> n) {
+        string name;
+        int g, s, b;
+        vector<pair<string, int>> vec;
+        for (int i = 0; i < n; ++i) {
+            cin >> name >> g >> s >> b;
+            vec.push_back(make_pair(name, 100*g + 10*s + b));
+            sort(vec.begin(), vec.end(), cmp);
+        }
+        
+        for (const auto &v : vec) {
+            cout << v.first << endl;
+        }
+    }
+}
+```
